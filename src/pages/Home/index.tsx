@@ -16,22 +16,25 @@ export interface dataMovie {
   vote_average: number;
 }
 
-const renderItem = ({ item }: { item: dataMovie }) => {
-  return (
-    <View style={styles.cards}>
-      <TouchableOpacity
-      >
-        <Image
-          source={{ uri: `${URIImage}/${item.poster_path}` }}
-          style={styles.imgCard} />
-        {item?.vote_average ? (<Text style={styles.rate}>{item.vote_average}</Text>) : null}
-        <Text style={styles.title}>{item.title}</Text>
-      </TouchableOpacity>
-    </View>
-  )
-}
-
 function Home({ navigation }: Props) {
+
+  const renderItem = ({ item }: { item: dataMovie }) => {
+    return (
+      <View style={styles.cards}>
+        <TouchableOpacity onPress={() => navigation.navigate("DetailMovie", {
+          id: item?.id
+        })}
+        >
+          <Image
+            source={{ uri: `${URIImage}/${item.poster_path}` }}
+            style={styles.imgCard} />
+          {item?.vote_average ? (<Text style={styles.rate}>{item.vote_average}</Text>) : null}
+          <Text style={styles.title}>{item.title}</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
   const [data, setData] = useState<any>();
   const [movie, setMovie] = useState<any>();
   const numColumns = 2
